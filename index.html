@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能门禁系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .background-image {
+            width: 100%;
+            height: auto;
+        }
+
+        .datetime-overlay {
+            position: absolute;
+            top: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            text-align: center;
+            box-shadow: none;
+        }
+
+        .date {
+            font-size: 45px;
+            color: #16adf7;
+            margin-bottom: 5px;
+            font-weight: bold;
+            letter-spacing: 10px;
+        }
+
+        .time {
+            font-size: 45px;
+            color: #16adf7;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+
+        .top-left-time {
+            position: absolute;
+            top: 10px;
+            left: 17px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #4eacf8;
+        }
+
+        .visit-date {
+            position: absolute;
+            bottom: 356px;
+            left: 152px;
+            color: #333;
+            font-size: 15px;
+            font-weight: bold;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="https://static.flomoapp.com/file/2025-01-09/46379/889c70f23cbcdd8612b038dc21412e7a.png?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1736692045&Signature=L1mnqoyWVLsvBJbnhOhjF0Cp9Ow%3D" alt="背景" class="background-image">
+    <div class="top-left-time" id="topLeftTime"></div>
+    <div class="datetime-overlay">
+        <div class="date" id="date"></div>
+        <div class="time" id="time"></div>
+    </div>
+    <div class="visit-date" id="visitDate"></div>
+</div>
+
+<script>
+    function updateDateTime() {
+        const now = new Date();
+
+        // 更新日期
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+        document.getElementById('date').textContent = `${month}月${day}日`;
+
+        // 更新时间
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+
+        // 更新左上角时间
+        document.getElementById('topLeftTime').textContent = `${hours}:${minutes}`;
+
+        // 更新来访日期
+        const year = now.getFullYear();
+        document.getElementById('visitDate').textContent = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    }
+
+    // 初始更新
+    updateDateTime();
+    // 每秒更新一次
+    setInterval(updateDateTime, 1000);
+</script>
+</body>
+</html>
